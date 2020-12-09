@@ -52,13 +52,13 @@ public class CastleDAO {
 		return list;
 	}
 
-	public List<Castle> getList(Map<String, Object> searchParams) {
+	public List<Castle> getListVer(Map<String, Object> searchParams) {
 		List<Castle> list = null;
 
 		// 1. Build query string with parameters
 		String select = "select c ";
 		String from = "from Castle c ";
-		String where = "";
+		String where = "where c.isVerified like :verified ";
 		String orderby = "order by c.name asc, c.name";
 
 		// search for surname
@@ -81,6 +81,8 @@ public class CastleDAO {
 		if (name != null) {
 			query.setParameter("name", name+"%");
 		}
+		
+		query.setParameter("verified", "no");
 
 		// ... other parameters ... 
 
