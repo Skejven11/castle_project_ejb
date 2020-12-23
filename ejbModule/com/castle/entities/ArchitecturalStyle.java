@@ -20,7 +20,7 @@ public class ArchitecturalStyle implements Serializable {
 	@Column(name="idarchitectural_style")
 	private int idarchitecturalStyle;
 
-	private int century;
+	private String centuries;
 
 	private String name;
 
@@ -39,12 +39,12 @@ public class ArchitecturalStyle implements Serializable {
 		this.idarchitecturalStyle = idarchitecturalStyle;
 	}
 
-	public int getCentury() {
-		return this.century;
+	public String getCentury() {
+		return this.centuries;
 	}
 
-	public void setCentury(int century) {
-		this.century = century;
+	public void setCentury(String century) {
+		this.centuries = century;
 	}
 
 	public String getName() {

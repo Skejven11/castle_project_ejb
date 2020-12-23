@@ -10,12 +10,14 @@ import java.util.List;
  * 
  */
 @Entity
+@Table (name = "user")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int iduser;
 
 	private String email;
