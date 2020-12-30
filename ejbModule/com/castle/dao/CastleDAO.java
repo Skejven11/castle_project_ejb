@@ -82,7 +82,7 @@ public class CastleDAO {
 			query.setParameter("name", name+"%");
 		}
 		
-		query.setParameter("verified", "no");
+		query.setParameter("verified", "1");
 
 		// ... other parameters ... 
 

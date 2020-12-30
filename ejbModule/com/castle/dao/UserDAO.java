@@ -49,9 +49,26 @@ public class UserDAO {
 		return list;
 	}
 	
-	public String getUserRole()
-	{
-		return "0";
+	public List<User> userExists(String login, String pass) {
+		List<User> user = null;
+
+		String select = "select u ";
+		String from = "from User u ";
+		String where = "where u.login like :login or u.password like :pass ";
+		String orderby = "";
+		
+		Query query = em.createQuery(select + from + where);
+
+			query.setParameter("login", login);
+			query.setParameter("pass", pass);
+		
+		try {
+			user = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return user;
 	}
 
 	public List<User> getUser(String login, String pass) {
