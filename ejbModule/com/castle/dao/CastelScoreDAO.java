@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.castle.entities.CastleScore;
+import com.castle.entities.User;
 import com.castle.entities.Castle;
 
 //DAO - Data Access Object for Person entity
@@ -22,24 +24,24 @@ public class CastelScoreDAO {
 	@PersistenceContext(unitName = UNIT_NAME)
 	protected EntityManager em;
 
-	public void create(Castle castle) {
+	public void create(CastleScore castle) {
 		em.persist(castle);
 	}
 
-	public Castle merge(Castle castle) {
+	public CastleScore merge(CastleScore castle) {
 		return em.merge(castle);
 	}
 
-	public void remove(Castle castle) {
+	public void remove(CastleScore castle) {
 		em.remove(em.merge(castle));
 	}
 
-	public Castle find(Object id) {
-		return em.find(Castle.class, id);
+	public CastleScore find(Object id) {
+		return em.find(CastleScore.class, id);
 	}
 
-	public List<Castle> getFullList() {
-		List<Castle> list = null;
+	public List<CastleScore> getFullList() {
+		List<CastleScore> list = null;
 
 		Query query = em.createQuery("select c from Castle c");
 
@@ -51,9 +53,69 @@ public class CastelScoreDAO {
 
 		return list;
 	}
+	
+	public List<CastleScore> userExists(User user) {
+		List<CastleScore> list = null;
+		String select = "select s ";
+		String from = "from CastleScore s ";
+		String where = "where s.user like :user ";
+		String orderby = "";
+		
+		Query query = em.createQuery(select + from + where + orderby);
+		query.setParameter("user", user);
 
-	public List<Castle> getListVer(Map<String, Object> searchParams) {
-		List<Castle> list = null;
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<CastleScore> scoreExists(User user, Castle castle) {
+		List<CastleScore> list = null;
+		String select = "select s ";
+		String from = "from CastleScore s ";
+		String where = "where s.castle like :castle and s.user like :user ";
+		String orderby = "";
+		
+		Query query = em.createQuery(select + from + where + orderby);
+		query.setParameter("castle", castle);
+		query.setParameter("user", user);
+
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public List<CastleScore> scoreCastles(Castle castle) {
+		List<CastleScore> list = null;
+		String select = "select s ";
+		String from = "from CastleScore s ";
+		String where = "where s.castle like :castle ";
+		String orderby = "";
+		
+		Query query = em.createQuery(select + from + where + orderby);
+		query.setParameter("castle", castle);
+
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	
+
+	public List<CastleScore> getListVer(Map<String, Object> searchParams) {
+		List<CastleScore> list = null;
 
 		// 1. Build query string with parameters
 		String select = "select c ";

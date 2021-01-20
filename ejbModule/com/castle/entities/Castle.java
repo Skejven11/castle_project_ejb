@@ -26,7 +26,7 @@ public class Castle implements Serializable {
 	@Column(name="current_owner")
 	private String currentOwner;
 
-	private byte isRuin;
+	private String isRuin;
 
 	private String isVerified;
 
@@ -89,11 +89,11 @@ public class Castle implements Serializable {
 		this.currentOwner = currentOwner;
 	}
 
-	public byte getIsRuin() {
+	public String getIsRuin() {
 		return this.isRuin;
 	}
 
-	public void setIsRuin(byte isRuin) {
+	public void setIsRuin(String isRuin) {
 		this.isRuin = isRuin;
 	}
 
